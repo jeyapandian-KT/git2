@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Student Registration</title>
+	<style>
+		:root {
+			color-scheme: light;
+			font-family: "Segoe UI", sans-serif;
+			color: #20312d;
+			background: #f2f6f3;
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			min-height: 100vh;
+			margin: 0;
+			display: grid;
+			place-items: center;
+			padding: 24px;
+			background: radial-gradient(circle at 8% 8%, #dcece3 0, transparent 32%), #f2f6f3;
+		}
+
+		main {
+			width: min(100%, 680px);
+			padding: 32px;
+			background: #fff;
+			border: 1px solid #dce5df;
+			border-radius: 8px;
+			box-shadow: 0 16px 42px #233d3012;
+		}
+
+		.eyebrow {
+			margin: 0 0 8px;
+			color: #28745d;
+			font-size: 0.78rem;
+			font-weight: 700;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		h1 { margin: 0; font-size: 1.8rem; }
+		.intro { margin: 8px 0 24px; color: #62716b; }
+
+		form {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 18px 16px;
+		}
+
+		.field { display: grid; gap: 7px; }
+		.field.full, .actions, #message { grid-column: 1 / -1; }
+
+		label, legend { font-size: 0.9rem; font-weight: 650; }
+
+		input, select, textarea {
+			width: 100%;
+			min-height: 44px;
+			padding: 10px 12px;
+			border: 1px solid #cbd7d0;
+			border-radius: 5px;
+			background: #fff;
+			color: inherit;
+			font: inherit;
+		}
+
+		textarea { min-height: 86px; resize: vertical; }
+		input:focus, select:focus, textarea:focus { outline: 3px solid #8bc5ad80; border-color: #28745d; }
+
+		fieldset { margin: 0; padding: 0; border: 0; }
+
+		.choices { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px; }
+		.choice { display: inline-flex; align-items: center; gap: 7px; font-weight: 400; }
+		.choice input { width: 16px; min-height: 16px; margin: 0; accent-color: #28745d; }
+
+		.actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 4px; }
+		button { min-height: 44px; padding: 0 17px; border: 1px solid #cbd7d0; border-radius: 5px; background: #fff; color: inherit; font: inherit; font-weight: 650; cursor: pointer; }
+		button[type="submit"] { border-color: #216b54; background: #216b54; color: #fff; }
+		button:hover { filter: brightness(0.96); }
+		#message { min-height: 1.3em; margin: 0; color: #216b54; font-weight: 600; }
+
+		@media (max-width: 540px) {
+			main { padding: 24px 18px; }
+			form { grid-template-columns: 1fr; }
+			.field.full, .actions, #message { grid-column: auto; }
+			.actions button { flex: 1; }
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<p class="eyebrow">Student Services</p>
+		<h1>Student registration</h1>
+		<p class="intro">Enter your details to register for a course.</p>
+
+		<form id="registration-form">
+			<div class="field">
+				<label for="first-name">First name</label>
+				<input id="first-name" name="firstName" autocomplete="given-name" required>
+			</div>
+			<div class="field">
+				<label for="last-name">Last name</label>
+				<input id="last-name" name="lastName" autocomplete="family-name" required>
+			</div>
+			<div class="field">
+				<label for="email">Email address</label>
+				<input id="email" name="email" type="email" autocomplete="email" required>
+			</div>
+			<div class="field">
+				<label for="phone">Phone number</label>
+				<input id="phone" name="phone" type="tel" autocomplete="tel" required>
+			</div>
+			<div class="field">
+				<label for="birth-date">Date of birth</label>
+				<input id="birth-date" name="birthDate" type="date" required>
+			</div>
+			<div class="field">
+				<label for="course">Course</label>
+				<select id="course" name="course" required>
+					<option value="" selected disabled>Select a course</option>
+					<option>Computer Science</option>
+					<option>Business Administration</option>
+					<option>Biology</option>
+					<option>Psychology</option>
+					<option>Other</option>
+				</select>
+			</div>
+			<fieldset class="field full">
+				<legend>Gender (optional)</legend>
+				<div class="choices">
+					<label class="choice"><input type="radio" name="gender" value="female"> Female</label>
+					<label class="choice"><input type="radio" name="gender" value="male"> Male</label>
+					<label class="choice"><input type="radio" name="gender" value="other"> Other</label>
+					<label class="choice"><input type="radio" name="gender" value="prefer-not-to-say"> Prefer not to say</label>
+				</div>
+			</fieldset>
+			<div class="field full">
+				<label for="address">Address</label>
+				<textarea id="address" name="address" autocomplete="street-address" required></textarea>
+			</div>
+			<p id="message" role="status" aria-live="polite"></p>
+			<div class="actions">
+				<button type="reset">Clear form</button>
+				<button type="submit">Register</button>
+			</div>
+		</form>
+	</main>
+	<script>
+		const form = document.querySelector("#registration-form");
+		const message = document.querySelector("#message");
+
+		form.addEventListener("input", () => { message.textContent = ""; });
+		form.addEventListener("reset", () => { message.textContent = ""; });
+		form.addEventListener("submit", (event) => {
+			event.preventDefault();
+			message.textContent = "Registration details submitted.";
+			form.reset();
+		});
+	</script>
+</body>
+</html>
