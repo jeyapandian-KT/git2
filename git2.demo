@@ -117,7 +117,7 @@
 				<input id="birth-date" name="birthDate" type="date" required>
 			</div>
 			<div class="field">
-				<label for="course">Course</label>
+				<label for="course">syllabus</label>
 				<select id="course" name="course" required>
 					<option value="" selected disabled>Select a course</option>
 					<option>Computer Science</option>
